@@ -45,7 +45,7 @@ class CoinData {
       double coinRate = coinData['rate'];
       cryptoPrices[crypto] = coinRate.toStringAsFixed(0);
     }
-    print(cryptoPrices);
+    print('these are the crypto prices = $cryptoPrices');
     return cryptoPrices;
   }
 }

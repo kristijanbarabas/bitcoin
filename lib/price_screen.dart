@@ -55,14 +55,17 @@ class _PriceScreenState extends State<PriceScreen> {
 // METHOD FOR GETTING BITCOIN VALUE
   Map<String, String> coinValues = {};
   String bitcoinValue = '';
+  bool isWaiting = false;
 
   void getData() async {
+    isWaiting = true;
     try {
       var data = await CoinData().getCoinData(selectedCurrency);
-      print(data);
+      print('this is the data = $data');
+      isWaiting = false;
       setState(() {
         coinValues = data;
-        print(coinValues);
+        print('these are the coinValues = $coinValues');
       });
     } catch (e) {
       print(e);
@@ -87,16 +90,16 @@ class _PriceScreenState extends State<PriceScreen> {
         children: <Widget>[
           // BITCOIN BUTTON
           BitcoinButton(
-              bitcoinValue: coinValues['BTC'].toString(),
+              bitcoinValue: isWaiting ? '?' : coinValues['BTC'].toString(),
               selectedCurrency: selectedCurrency,
               selectedCrypto: 'BTC'),
           BitcoinButton(
-            bitcoinValue: coinValues['ETH'].toString(),
+            bitcoinValue: isWaiting ? '?' : coinValues['ETH'].toString(),
             selectedCurrency: selectedCurrency,
             selectedCrypto: 'ETH',
           ),
           BitcoinButton(
-              bitcoinValue: coinValues['LTC'].toString(),
+              bitcoinValue: isWaiting ? '?' : coinValues['LTC'].toString(),
               selectedCurrency: selectedCurrency,
               selectedCrypto: 'LTC'),
           Container(
